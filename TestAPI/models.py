@@ -12,7 +12,7 @@ class TestStruct(models.Model):
 
   def save(self, *args, **kwargs):
     timestamp = timezone.now()
-    if not self.id:
+    if not self.created_at:
       self.created_at = timestamp
     self.updated_at = timestamp
     return super().save(*args, **kwargs)
