@@ -20,9 +20,9 @@ def createTest(request):
 
   elif request.method == 'POST':
     files = request.FILES['file_part']
-    print(files.size)
-    return JsonResponse({})
+    # print(files.size)
     print(request.data)
+    return JsonResponse({})
     serializer = TestStructSerializer(data=request.data)
     if serializer.is_valid():
       serializer.save()
