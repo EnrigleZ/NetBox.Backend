@@ -1,7 +1,17 @@
 from TestAPI.models import TestStruct
 from rest_framework import serializers
 
-class TestStructSerializer(serializers.HyperlinkedModelSerializer):
+class TimestampField(serializers.Field):
+  def to_representation(self, value):
+    return round(value.timestamp() * 1000)
+
+class TestStructSerializer(serializers.ModelSerializer):
+  id = serializers.UUIDField(read_only=True)
+  title = serializers.CharField(required=True)
+  content = serializers.CharField(required=False)
+  created_at = TimestampField(read_only=True)
+  updated_at = TimestampField(read_only=True)
+
   class Meta:
     model = TestStruct
-    fields = ['title', 'content', 'created_at', 'updated_at']
+    fields = '__all__'
