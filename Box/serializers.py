@@ -12,3 +12,14 @@ class BoxFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = BoxFile
         fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        try:
+            size = instance.file_content.size
+            representation['size'] = size
+        except FileNotFoundError:
+            representation['size'] = 0
+
+        print(representation)
+        return representation
