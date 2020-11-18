@@ -15,11 +15,18 @@ class BoxFileSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        try:
-            size = instance.file_content.size
-            representation['size'] = size
-        except FileNotFoundError:
-            representation['size'] = 0
+        if hasattr(instance, 'file_content'):
+            try:
+                representation['size'] = instance.file_content.size
+                representation['path'] = instance.file_content.path
+            except FileNotFoundError:
+                representation['size'] = 0
 
-        print(representation)
         return representation
+
+    # def get_fields(self, *args, **kwargs):
+    #     fields = super().get_fields(*args, **kwargs)
+    #     request = self.context.get('request')
+    #     print(self.context)
+    #     # if request is not None and request.method != ''
+    #     return fields
