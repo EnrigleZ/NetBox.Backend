@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, action
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
+from wsgiref.util import FileWrapper
 
 import os
 
@@ -66,11 +67,14 @@ def downloadBoxFile(request):
     id = request.POST.get('id', None)
     if id is not None:
         boxfile = BoxFile.objects.get(id=id)
-    if id is None or not boxfile:
+        path = BoxFileViewSet.get_box_file_path(boxfile)
+    if id is None or not path:
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
     name = boxfile.name
-    response = HttpResponse(boxfile.file_content, content_type='application/octet-stream')
+    wrapper = FileWrapper(open(path, 'rb'))
+    response = HttpResponse(wrapper, content_type='application/octet-stream')
     response['Content-Disposition'] = 'attachment;filename="%s"' % name
+    response['Content-Length'] = os.path.getsize(path)
 
     return response
