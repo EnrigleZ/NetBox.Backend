@@ -26,13 +26,21 @@ def boxFileView(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class BoxFileViewSet(ModelViewSet):
-    queryset = BoxFile.objects.all()
-    serializer_class = BoxFileSerializer
-
-    @action(detail=False, methods=['GET'])
     def list(self, request):
-        print(request)
+        boxfiles = BoxFile.objects.all()
+        serializer = BoxFileSerializer(boxfiles, many=True)
+        return Response(serializer)
 
     def create(self, request):
-        print(request)
+        serializer = BoxFileSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request):
+        id = request.GET.get('id', None)
+        result = BoxFile.objects.get(id=id)
+        serializer = BoxFileSerializer(result)
+        return Response(serializer.data)
 
