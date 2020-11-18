@@ -29,7 +29,7 @@ class BoxFileViewSet(ModelViewSet):
     def list(self, request):
         boxfiles = BoxFile.objects.all()
         serializer = BoxFileSerializer(boxfiles, many=True)
-        return Response(serializer)
+        return Response(serializer.data)
 
     def create(self, request):
         serializer = BoxFileSerializer(data=request.data)
