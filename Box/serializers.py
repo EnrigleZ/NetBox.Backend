@@ -7,6 +7,7 @@ class TimestampField(serializers.Field):
 
 class BoxFileSerializer(serializers.ModelSerializer):
     author = serializers.CharField(required=False)
+    description = serializers.CharField(required=False)
     created_at = TimestampField(read_only=True)
     updated_at = TimestampField(read_only=True)
     class Meta:
