@@ -22,6 +22,8 @@ class BoxFileSerializer(serializers.ModelSerializer):
                 representation['path'] = instance.file_content.path
             except FileNotFoundError:
                 representation['size'] = 0
+            except:
+                pass
 
         return representation
 

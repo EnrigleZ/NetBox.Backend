@@ -5,7 +5,7 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from wsgiref.util import FileWrapper
 
-import os
+import os, time
 
 from Box.models import BoxFile
 from Box.serializers import BoxFileSerializer
@@ -33,6 +33,7 @@ class BoxFileViewSet(ModelViewSet):
     def create(self, request):
         serializer = BoxFileSerializer(data=request.data)
         if serializer.is_valid():
+            time.sleep(10)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
