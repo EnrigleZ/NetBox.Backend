@@ -47,9 +47,9 @@ class BoxFileViewSet(ModelViewSet):
 
     def create_content(self, request):
         id = request.POST.get('id', None)
-        if id is None:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
         instance = BoxFile.objects.get(id=id)
+        if id is None or not instance:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = BoxFileSerializer(instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
