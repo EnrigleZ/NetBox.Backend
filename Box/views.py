@@ -33,7 +33,7 @@ class BoxFileViewSet(ModelViewSet):
     def create(self, request):
         serializer = BoxFileSerializer(data=request.data)
         if serializer.is_valid():
-            time.sleep(10)
+            # time.sleep(10)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
@@ -44,6 +44,18 @@ class BoxFileViewSet(ModelViewSet):
         result = BoxFile.objects.get(id=id)
         serializer = BoxFileSerializer(result)
         return Response(serializer.data)
+
+    def create_content(self, request):
+        id = request.POST.get('id', None)
+        if id is None:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        instance = BoxFile.objects.get(id=id)
+        serializer = BoxFileSerializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request):
         id = request.GET.get('id', None)

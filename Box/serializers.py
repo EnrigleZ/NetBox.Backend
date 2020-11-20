@@ -10,6 +10,7 @@ class BoxFileSerializer(serializers.ModelSerializer):
     description = serializers.CharField(required=False)
     created_at = TimestampField(read_only=True)
     updated_at = TimestampField(read_only=True)
+    file_content = serializers.FileField(required=False)
     class Meta:
         model = BoxFile
         fields = '__all__'
@@ -27,9 +28,7 @@ class BoxFileSerializer(serializers.ModelSerializer):
 
         return representation
 
-    # def get_fields(self, *args, **kwargs):
-    #     fields = super().get_fields(*args, **kwargs)
-    #     request = self.context.get('request')
-    #     print(self.context)
-    #     # if request is not None and request.method != ''
-    #     return fields
+class BoxFileContentSerializer(serializers.ModelSerializer):
+    class Meta:
+        mode = BoxFile
+        fields = ('id', 'file_content')
