@@ -11,6 +11,8 @@ from Box.models import BoxFile
 from Box.serializers import BoxFileSerializer
 
 class BoxFileViewSet(ModelViewSet):
+    queryset = BoxFile.objects.all()
+
     @classmethod
     def get_box_file_path(cls, boxfile: BoxFile) -> str:
         try:
