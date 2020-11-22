@@ -22,7 +22,10 @@ SECRET_KEY = '=7h!03e$)mob@!4s!ag7ft78a7v7byi=cs_o%mvkd_iw56sz-5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = IS_DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.zhouyc.cc',
+    'zhouyc.cc'
+]
 
 
 # Application definition
@@ -34,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'Box',
     'TestAPI'
 ]
@@ -68,6 +72,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'NetBox.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
