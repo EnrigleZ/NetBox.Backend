@@ -24,7 +24,8 @@ DEBUG = IS_DEBUG
 
 ALLOWED_HOSTS = [
     'www.zhouyc.cc',
-    'zhouyc.cc'
+    'zhouyc.cc',
+    'localhost'
 ]
 
 
