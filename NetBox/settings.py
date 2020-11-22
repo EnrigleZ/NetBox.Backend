@@ -22,7 +22,10 @@ SECRET_KEY = '=7h!03e$)mob@!4s!ag7ft78a7v7byi=cs_o%mvkd_iw56sz-5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = IS_DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.zhouyc.cc',
+    'zhouyc.cc'
+]
 
 
 # Application definition
