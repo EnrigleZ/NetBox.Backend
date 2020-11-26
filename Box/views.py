@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, action
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.viewsets import ModelViewSet
 from wsgiref.util import FileWrapper
 
@@ -12,6 +12,12 @@ from Box.serializers import BoxFileSerializer
 
 class BoxFileViewSet(ModelViewSet):
     queryset = BoxFile.objects.all()
+    permission_classes = (permissions.AllowAny, )
+    
+    def get_permissions(self):
+        print(self.request)
+        permission_classes = (permissions.IsAuthenticated, )
+        return [permission() for permission in permission_classes]
 
     @classmethod
     def get_box_file_path(cls, boxfile: BoxFile) -> str:
