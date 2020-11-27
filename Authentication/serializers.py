@@ -1,7 +1,13 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from .models import NetBoxUser
-# ...
+
+class NetBoxTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data.update(username=self.user.username)
+        return data
+
 class NetBoxUserSerializer(serializers.ModelSerializer):
     """
     Currently unused in preference of the below.

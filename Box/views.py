@@ -14,10 +14,10 @@ class BoxFileViewSet(ModelViewSet):
     queryset = BoxFile.objects.all()
     permission_classes = (permissions.AllowAny, )
     
-    def get_permissions(self):
-        print(self.request)
-        permission_classes = (permissions.IsAuthenticated, )
-        return [permission() for permission in permission_classes]
+    # def get_permissions(self):
+    #     print(self.request)
+    #     permission_classes = (permissions.IsAuthenticated, )
+    #     return [permission() for permission in permission_classes]
 
     @classmethod
     def get_box_file_path(cls, boxfile: BoxFile) -> str:
