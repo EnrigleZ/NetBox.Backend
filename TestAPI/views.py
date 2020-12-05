@@ -7,8 +7,13 @@ from rest_framework.viewsets import ModelViewSet
 from TestAPI.models import TestStruct
 from TestAPI.serializers import TestStructSerializer
 
+import time
+import json
+import random
 
 # Create your views here.
+
+
 def test(request):
     return JsonResponse({'name': 123})
 
@@ -31,6 +36,21 @@ def createTest(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+PRED_RESPONSE = {"auc": "0.916361454469064", "f1": "0.8721774856203779",
+                 "precision": "0.8633524206142634", "recall": "0.8811848309756259"}
+
+
+@api_view(['POST'])
+def pred(request):
+    body = json.loads(str(request.body))
+    print(body)
+    time.sleep(0.5)
+    res = {"auc": str(random.random()), "f1": str(random.random()), "precision": str(random.random()), "recall": str(random.random()),
+           "n_students": "123", "n_exercises": "1550", "total_num": "576681", "average_exercise": "25.321552",
+           "model_name": body["model_name"], "dataset": body["dataset"]}
+    return JsonResponse(res)
 
 
 class TestStructViewSet(ModelViewSet):
