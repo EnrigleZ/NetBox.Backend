@@ -76,6 +76,15 @@ def check_status(request):
     exp_status = 'notstarted'
     return JsonResponse({ 'status': exp_status })
 
+@api_view(["GET"])
+def start(request):
+    return Response(status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def pred_tail(request):
+    time.sleep(0.25)
+    id = request.GET.get("id", None)
+    return JsonResponse({'id': id})
 
 class TestStructViewSet(ModelViewSet):
     def list(self, request):
