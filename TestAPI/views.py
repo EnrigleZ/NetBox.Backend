@@ -73,8 +73,19 @@ def inference_step(request):
 @api_view(["GET"])
 def check_status(request):
     time.sleep(0.5)
-    exp_status = 'notstarted'
-    return JsonResponse({ 'status': exp_status })
+    exp_status = 'finished'
+    return JsonResponse({
+        # results
+        'status': exp_status,
+        'results': {
+            'hit1': 0.10,
+            'hit3': 0.15,
+            'hit5': 0.20,
+            'hit10': 0.30,
+            'mr': 60,
+        },
+        'progress': 90
+    })
 
 @api_view(["GET"])
 def start(request):
