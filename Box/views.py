@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponse
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, action
-from rest_framework import status
+from rest_framework.decorators import api_view, action, permission_classes
+from rest_framework import status, permissions
 from rest_framework.viewsets import ModelViewSet
 from wsgiref.util import FileWrapper
 
@@ -12,6 +12,12 @@ from Box.serializers import BoxFileSerializer
 
 class BoxFileViewSet(ModelViewSet):
     queryset = BoxFile.objects.all()
+    permission_classes = (permissions.AllowAny, )
+    
+    # def get_permissions(self):
+    #     print(self.request)
+    #     permission_classes = (permissions.IsAuthenticated, )
+    #     return [permission() for permission in permission_classes]
 
     @classmethod
     def get_box_file_path(cls, boxfile: BoxFile) -> str:
@@ -78,6 +84,7 @@ class BoxFileViewSet(ModelViewSet):
         return Response(serializer.data)
 
 @api_view(['POST'])
+@permission_classes((permissions.AllowAny, ))
 def downloadBoxFile(request):
     id = request.POST.get('id', None)
     if id is not None:
@@ -89,7 +96,26 @@ def downloadBoxFile(request):
     name = boxfile.name
     wrapper = FileWrapper(open(path, 'rb'))
     response = HttpResponse(wrapper, content_type='application/octet-stream')
-    response['Content-Disposition'] = 'attachment;filename="%s"' % name
+    response['Content-Disposition'] = 'attachment; filename=%s' % name
     response['Content-Length'] = os.path.getsize(path)
+
+    return response
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny, ))
+def downloadBoxFileGet(request):
+    id='4ada29f7-2f39-4c41-bad7-e8362cce89c3'
+    print(id)
+    if id is not None:
+        boxfile = BoxFile.objects.get(id=id)
+        path = BoxFileViewSet.get_box_file_path(boxfile)
+    if id is None or not path:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    name = boxfile.name
+    wrapper = FileWrapper(open(path, 'rb'))
+    response = HttpResponse(wrapper, content_type='application/octet-stream')
+    response['Content-Disposition'] = 'attachment; filename=%s' % name
+    # response['Content-Length'] = os.path.getsize(path)
 
     return response

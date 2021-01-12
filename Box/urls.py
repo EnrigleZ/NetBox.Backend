@@ -11,5 +11,6 @@ urlpatterns = [
     'post': 'create_content'
   })),
   path('box-files', views.BoxFileViewSet.as_view({'get': 'list', 'delete': 'destroy_all'})),
-  path('download', views.downloadBoxFile)
+  path('download', views.downloadBoxFile),
+  path('download-get', views.downloadBoxFileGet),
 ]
