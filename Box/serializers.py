@@ -11,6 +11,7 @@ class BoxFileSerializer(serializers.ModelSerializer):
     created_at = TimestampField(read_only=True)
     updated_at = TimestampField(read_only=True)
     file_content = serializers.FileField(required=False)
+    box_file_area = serializers.CharField(source='box_file_area.id', default=None)
     class Meta:
         model = BoxFile
         fields = '__all__'
@@ -28,7 +29,7 @@ class BoxFileSerializer(serializers.ModelSerializer):
 
         return representation
 
-class BoxFileContentSerializer(serializers.ModelSerializer):
-    class Meta:
-        mode = BoxFile
-        fields = ('id', 'file_content')
+# class BoxFileContentSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         mode = BoxFile
+#         fields = ('id', 'file_content')

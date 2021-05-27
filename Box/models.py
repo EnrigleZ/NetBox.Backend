@@ -1,6 +1,8 @@
 from django.db import models
 import uuid
 
+from .BoxFileArea.models import BoxFileArea
+
 class BoxFile(models.Model):
     id = models.UUIDField(verbose_name='id', primary_key=True,
                           default=uuid.uuid4, editable=False, unique=True)
@@ -10,3 +12,6 @@ class BoxFile(models.Model):
     created_at = models.DateTimeField(verbose_name='createTime', editable=False, auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='updateTime', auto_now=True)
     author = models.CharField(verbose_name='author', max_length=50)
+
+    box_file_area = models.ForeignKey(BoxFileArea, on_delete=models.CASCADE,
+                                      blank=True, null=True)
