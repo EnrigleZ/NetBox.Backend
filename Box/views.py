@@ -1,4 +1,5 @@
 from django.http import JsonResponse, HttpResponse
+from django.contrib.auth.models import AnonymousUser
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, action, permission_classes
 from rest_framework import status, permissions
