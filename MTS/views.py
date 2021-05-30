@@ -14,7 +14,7 @@ Path(mts_path).mkdir(exist_ok=True)
 def join(*args):
     return os.path.join(mts_path, *args)
 
-TDMTree.load(join('temp.tree'))
+# TDMTree.load(join('temp.tree'))
 
 def genereteTree(request):
     children_limits = request.POST['limits']
