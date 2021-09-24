@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'TestAPI',
     'Authentication',
     "MTS",
+    "ImageHost",
 ]
 
 MIDDLEWARE = [
