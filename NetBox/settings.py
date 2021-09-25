@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Authentication',
     "MTS",
     "ImageHost",
+    "Note",
 ]
 
 MIDDLEWARE = [
