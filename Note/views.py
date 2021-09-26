@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import HttpResponse, HttpResponseNotFound, JsonResponse
 from .models import Note
 from .serializers import NoteSerializer
 
@@ -19,6 +19,15 @@ def createNote(request):
 
 def getNotes(request):
     notes = Note.objects.all()
-    serializer = NoteSerializer(notes, many=True)
+    serializer = NoteSerializer(notes, many=True, context={'short': True})
 
+    return JsonResponse(serializer.data, safe=False)
+
+def getNote(request):
+    id = request.GET.get('id', None)
+    try:
+        instance = Note.objects.get(id=id)
+    except Note.DoesNotExist:
+        return HttpResponseNotFound()
+    serializer = NoteSerializer(instance)
     return JsonResponse(serializer.data, safe=False)
