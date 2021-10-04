@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework import serializers
 
 # Create your models here.
 class GitCommit(models.Model):
@@ -7,3 +8,13 @@ class GitCommit(models.Model):
     url = models.CharField(max_length=256)
     committer = models.CharField(max_length=64)
     timestamp = models.IntegerField()
+
+class GitCommitSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    message = serializers.CharField()
+    url = serializers.CharField()
+    committer = serializers.CharField()
+    timestamp = serializers.IntegerField()
+
+    class Meta:
+        model = GitCommit
