@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
@@ -23,4 +22,5 @@ urlpatterns = [
     path('api/mts/', include(("MTS.urls", "MTS"))),
     path('api/image/', include(("ImageHost.urls", "ImageHost"))),
     path('api/note/', include(("Note.urls", "Note"))),
+    path('api/server/', include(("Server.urls", "Server"))),
 ]
