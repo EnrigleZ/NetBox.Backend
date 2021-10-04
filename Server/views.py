@@ -13,8 +13,8 @@ def parseTimeStamp(ts_str: str):
 def webhook(request: HttpRequest):
     event = request.headers.get('X-GitHub-Event', '')
     if event == 'push':
-        ref_name = request.POST.get('ref')
-        commits = request.POST.get('commits', [])
+        ref_name = request.body.get('ref')
+        commits = request.body.get('commits', [])
         print (f"Get {len(commits)} from {ref_name}")
 
         ignored_commits = []
