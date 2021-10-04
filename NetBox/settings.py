@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "MTS",
     "ImageHost",
     "Note",
+    "Server",
 ]
 
 MIDDLEWARE = [
