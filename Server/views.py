@@ -1,5 +1,5 @@
 import re
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, JsonResponse
 from django.http.request import HttpRequest
 import datetime
 import json
@@ -48,4 +48,21 @@ def webhook(request: HttpRequest):
         })
     return HttpResponse('')
 
-# def
+def getAllGitCommits(request: HttpRequest):
+    objects = GitCommit.objects.all()
+    return JsonResponse(GitCommitSerializer(objects, many=True).data, safe=False)
+
+def checkCommit(request: HttpRequest):
+    id = request.GET.get('id', None)
+    qa = request.GET.get('qa', None)
+    if id is None or qa is None:
+        return HttpResponseBadRequest()
+    try:
+        object = GitCommit.objects.get(id=id)
+    except GitCommit.DoesNotExist:
+        return HttpResponseNotFound()
+
+    object.qa_checked = qa
+    object.save()
+
+    return JsonResponse(GitCommitSerializer(object).data)

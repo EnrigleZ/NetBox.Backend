@@ -8,6 +8,7 @@ class GitCommit(models.Model):
     url = models.CharField(max_length=256)
     committer = models.CharField(max_length=64)
     timestamp = models.IntegerField()
+    qa_checked = models.CharField(max_length=64, default='')
 
 class GitCommitSerializer(serializers.Serializer):
     id = serializers.CharField()
@@ -15,6 +16,7 @@ class GitCommitSerializer(serializers.Serializer):
     url = serializers.CharField()
     committer = serializers.CharField()
     timestamp = serializers.IntegerField()
+    qa_checked = serializers.CharField()
 
     class Meta:
         model = GitCommit
