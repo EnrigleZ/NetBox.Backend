@@ -20,5 +20,7 @@ urlpatterns = [
     path('api/auth/', include(("Authentication.urls", "Authentication"))),
     path('api/test/', include(("TestAPI.urls", "TestAPI"))),
     path('api/box/', include(("Box.urls", "Box"))),
-    path('api/mts/', include(("MTS.urls", "MTS")))
+    path('api/mts/', include(("MTS.urls", "MTS"))),
+    path('api/image/', include(("ImageHost.urls", "ImageHost"))),
+    path('api/note/', include(("Note.urls", "Note"))),
 ]
