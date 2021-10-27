@@ -7,11 +7,15 @@ from rest_framework.viewsets import ModelViewSet
 from TestAPI.models import TestStruct
 from TestAPI.serializers import TestStructSerializer
 
+from datetime import datetime
 
-# Create your views here.
-def test(request):
-    return JsonResponse({'name': 123})
-
+def defaultTest(request):
+    dt = datetime.now()
+    timestamp = int(dt.timestamp())
+    return JsonResponse({
+        'timestamp': timestamp,
+        'datetime': str(dt),
+    })
 
 @api_view(['GET', 'POST'])
 def createTest(request):
