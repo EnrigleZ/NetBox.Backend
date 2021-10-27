@@ -53,8 +53,8 @@ def getAllGitCommits(request: HttpRequest):
     return JsonResponse(GitCommitSerializer(objects, many=True).data, safe=False)
 
 def checkCommit(request: HttpRequest):
-    id = request.GET.get('id', None)
-    qa = request.GET.get('qa', None)
+    id = request.POST.get('id', None)
+    qa = request.POST.get('qa', None)
     if id is None or qa is None:
         return HttpResponseBadRequest()
     try:
